@@ -8,7 +8,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className=''>
+    <div>
       <div className='flex justify-around items-center p-4'>
       <Image
         src="/logo.png"
