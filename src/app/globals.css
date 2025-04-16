@@ -24,7 +24,6 @@ h6,
 p,
 blockquote,
 pre,
-a,
 abbr,
 acronym,
 address,
@@ -58,8 +57,6 @@ ol,
 ul,
 li,
 fieldset,
-form,
-label,
 legend,
 table,
 caption,
@@ -95,6 +92,7 @@ video {
   font-size: 100%;
   font-family: 'Noto Sans JP', sans-serif;
   vertical-align: baseline;
+  font-weight: 800;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -109,6 +107,10 @@ menu,
 nav,
 section {
   display: block;
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 body {
   line-height: 1;
@@ -154,7 +156,6 @@ table {
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
-  --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -189,7 +190,6 @@ table {
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.705 0.015 286.067);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
