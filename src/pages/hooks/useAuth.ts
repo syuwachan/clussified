@@ -23,10 +23,16 @@ const{data,error}=await supabase.auth.signInWithPassword({
 })
 
 if(error)throw error
-return data
-  }
+return data;
+}
 
-  return { onSignUp,onLogin };
+//ログアウト処理
+const onLogout = async () => {
+  const { error } = await supabase.auth.signOut()
+  if (error) throw error
+}
+
+  return { onSignUp,onLogin,onLogout };
 };
 
 export default useAuth; 
