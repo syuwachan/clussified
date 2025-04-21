@@ -1,6 +1,6 @@
 export default function MainPage() {
   return (
-    <div className='text-center'>
+    <div className='text-center my-10 mx-10'>
       <p className='text-2xl font-bold'>Your Location Tokyo</p>
       <p className='text-lg'>Pick a category</p>
       <div className="grid grid-cols-4 gap-4">

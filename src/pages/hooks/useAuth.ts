@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import supabase from '../../lib/supabase';
-
+//新規登録処理
 const useAuth = () => {
   const onSignUp = async (email: string, password: string, username: string) => {
     const { data, error } = await supabase.auth.signUp({
@@ -16,7 +15,18 @@ const useAuth = () => {
     return data;
   };
 
-  return { onSignUp };
+  //ログイン処理
+const onLogin =async(email:string,password:string)=>{
+const{data,error}=await supabase.auth.signInWithPassword({
+  email,
+  password,
+})
+
+if(error)throw error
+return data
+  }
+
+  return { onSignUp,onLogin };
 };
 
 export default useAuth; 
