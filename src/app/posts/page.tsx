@@ -10,13 +10,7 @@ export default function NewPost() {
 	return (
 		<div>
 			<div className='flex justify-around items-center p-4'>
-				<Image
-					src="/logo.png"
-					alt="J-Classified Logo"
-					width={300}
-					height={100}
-					priority
-				/>
+				<p className='text-2xl font-bold'>J-Classified</p>
 				<div className='flex justify-end text-decoration-none'>
 					<Link href="/signup" className='ml-4 p-2 text-decoration-none'>Signup</Link>
 				</div>
