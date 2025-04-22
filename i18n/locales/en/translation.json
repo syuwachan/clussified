@@ -1,0 +1,23 @@
+{
+	"translations": {
+	"key": "value",
+	"english": "English",
+	"japanese": "Japanese",
+	"chinese": "Chinese",
+	"korean": "Korean",
+	"buySellTrade": "Buy / Sell / Trade",
+	"restaurant": "Restaurant",
+	"event": "Event",
+	"foreignersWelcome": "Foreigners Welcome Services",
+	"realEstate": "Real Estate",
+	"automotive": "Automotive",
+	"jobs": "Jobs",
+	"services": "Services",
+	"community": "Community",
+	"more": "More",
+	"signup": "Signup",
+	"login": "Login",
+	"personals": "Personals",
+	"tourExperience": "Tour&Experience"
+	}
+        }

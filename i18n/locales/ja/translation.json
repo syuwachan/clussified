@@ -1,0 +1,23 @@
+{
+	"translations": {
+	"key": "value",
+	"english": "英語",
+	"japanese": "日本語",
+	"chinese": "中国語",
+	"korean": "韓国語",
+	"signup": "新規登録",
+	"login": "ログイン",
+	"buySellTrade": "買い/売り/取引",
+	"restaurant": "レストラン",
+	"event": "イベント",
+	"foreignersWelcome": "外国人歓迎サービス",
+	"realEstate": "不動産",
+	"automotive": "自動車",
+	"jobs": "仕事",
+	"services": "サービス",
+	"community": "コミュニティ",
+	"more": "もっと",
+	"personals": "個人",
+	"tourExperience": "旅行/体験"
+	}
+}
