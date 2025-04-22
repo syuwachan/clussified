@@ -4,20 +4,21 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import MainPage from "./MainPage";
 import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div>
       <div className='flex justify-around items-center p-4'>
         <p className='text-2xl font-bold'>J-Classified</p>
         <div className='flex justify-end text-decoration-none'>
-          <Link href="/signup" className='ml-4 p-2 text-decoration-none'>{t('signup')}</Link>
+          <Link href="/signup" className='ml-4 p-2 text-decoration-none'>{t('translations.signup')}</Link>
         </div>
         <div className='flex justify-end'>
-          <Link href="/login" className='ml-4 p-2 text-decoration-none'>{t('login')}</Link>
+          <Link href="/login" className='ml-4 p-2 text-decoration-none'>{t('translations.login')}</Link>
         </div>
         <div className="relative hover:cursor-pointer">
           <button
