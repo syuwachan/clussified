@@ -1,20 +1,31 @@
-'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import useAuth from './hooks/useAuth'
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import useAuth from '../../hooks/useAuth';
 
 export default function LoginPage() {
-	const router = useRouter()
-	const { onLogin } = useAuth()
+	const router = useRouter();
+	const { onLogin } = useAuth();
 
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [error, setError] = useState('')
-	const [loading, setLoading] = useState(false)
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	const handleLogin = async (e: React.FormEvent) => {
-		// ... existing code ...
-	}
+		e.preventDefault();
+		setLoading(true);
+		setError('');
+		try {
+			await onLogin(email, password);
+			router.push('/');
+		} catch (err: any) {
+			setError(err.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<div className="max-w-md mx-auto mt-16 p-6 border rounded shadow">
@@ -45,5 +56,5 @@ export default function LoginPage() {
 				</button>
 			</form>
 		</div>
-	)
-}
+	);
+} 

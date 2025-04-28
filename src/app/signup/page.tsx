@@ -1,6 +1,9 @@
-import { NextPage } from 'next';
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import useAuth from './hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 interface SignUpFormInput {
 	username: string;
@@ -9,9 +12,12 @@ interface SignUpFormInput {
 	role: 'client' | 'advertiser';
 }
 
-const SignUp: NextPage = () => {
-	const { onSignUp } = useAuth();
-	const { register, handleSubmit } = useForm<SignUpFormInput>({
+export default function SignUp() {
+	const router = useRouter();
+	const { onSignup } = useAuth();
+	const [error, setError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const { register, handleSubmit, formState: { errors } } = useForm<SignUpFormInput>({
 		defaultValues: {
 			email: '',
 			password: '',
@@ -21,8 +27,17 @@ const SignUp: NextPage = () => {
 	});
 
 	const onSubmit: SubmitHandler<SignUpFormInput> = async (data) => {
-		const { username, email, password } = data;
-		await onSignUp(email, password, username);
+		try {
+			setIsLoading(true);
+			setError(null);
+			const { username, email, password } = data;
+			await onSignup(email, password, username);
+			router.push('/');
+		} catch (err) {
+			setError(err instanceof Error ? err.message : '登録に失敗しました');
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -31,6 +46,11 @@ const SignUp: NextPage = () => {
 				onSubmit={handleSubmit(onSubmit)}
 				className="w-1/2 mx-auto my-8 p-6 bg-white rounded-2xl shadow-md space-y-6"
 			>
+				{error && (
+					<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+						{error}
+					</div>
+				)}
 				<div>
 					<label className="block text-sm font-medium text-gray-700 mb-1">
 						username
@@ -67,7 +87,6 @@ const SignUp: NextPage = () => {
 					/>
 				</div>
 
-
 				<div className="flex flex-col gap-4 p-4 border bg-white max-w-md">
 					<label className="flex items-center gap-3 p-3 cursor-pointer">
 						<input
@@ -79,7 +98,7 @@ const SignUp: NextPage = () => {
 						<span className="text-sm font-medium">Client（View Ads）</span>
 					</label>
 
-					<label className="flex items-center gap-3 p-3 cursor-pointer ">
+					<label className="flex items-center gap-3 p-3 cursor-pointer">
 						<input
 							type="radio"
 							value="advertiser"
@@ -90,17 +109,15 @@ const SignUp: NextPage = () => {
 					</label>
 				</div>
 
-
-
 				<button
 					type="submit"
-					className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+					disabled={isLoading}
+					className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''
+						}`}
 				>
-					SignUp
+					{isLoading ? '登録中...' : 'SignUp'}
 				</button>
 			</form>
 		</div>
 	);
-};
-
-export default SignUp;
+} 
