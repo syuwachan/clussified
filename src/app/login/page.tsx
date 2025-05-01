@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuth from '../../hooks/useAuth';
+import Header from '@/components/Header';
 
 export default function LoginPage() {
 	const router = useRouter();
 	const { onLogin } = useAuth();
 
+	const[username,setUserName]= useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -28,8 +30,18 @@ export default function LoginPage() {
 	};
 
 	return (
+		<>
+		<Header></Header>
 		<div className="max-w-md mx-auto mt-16 p-6 border rounded shadow">
 			<form onSubmit={handleLogin} className="space-y-4">
+			<input
+					type="name"
+					placeholder="your username"
+					value={username}
+					onChange={(e) => setUserName(e.target.value)}
+					className="w-full p-2 border rounded"
+					required
+				/>
 				<input
 					type="email"
 					placeholder="your email address"
@@ -56,5 +68,6 @@ export default function LoginPage() {
 				</button>
 			</form>
 		</div>
+		</>
 	);
 } 
