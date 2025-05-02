@@ -9,7 +9,6 @@
 
 *{
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: #F2F2ED;
   color: #616161;
 }
 
@@ -42,3 +41,6 @@ a{
     font-weight: 600;
   }
   
+  .category-container{
+    background-color: white;
+  }
