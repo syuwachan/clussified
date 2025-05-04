@@ -19,10 +19,28 @@ a{
   .loc-selector {
     font-size: 36px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
+    margin-top: 80px;
   }
   .loc-selector-span {
     color: #4B6775;
+  }
+
+  .signup-button {
+    background-color: #4B6775;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin-right: 30px;
+  }
+
+  .login-button {
+    background-color: #4B6775;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
   }
 
   .grid-container {
