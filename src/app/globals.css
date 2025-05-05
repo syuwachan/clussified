@@ -2,63 +2,65 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* @tailwind base; */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-*{
+* {
   font-family: 'Noto Sans JP', sans-serif;
   color: #616161;
 }
 
-a{
+a {
   text-decoration: none;
   color: #616161;
 }
-  .loc-selector {
-    font-size: 36px;
-    font-weight: 600;
-    margin-bottom: 50px;
-    margin-top: 80px;
-  }
-  .loc-selector-span {
-    color: #4B6775;
-  }
 
-  .signup-button {
-    background-color: #4B6775;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 18px;
-    margin-right: 30px;
-  }
+.loc-selector {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 50px;
+  margin-top: 80px;
+}
 
-  .login-button {
-    background-color: #4B6775;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 18px;
-  }
+.loc-selector-span {
+  color: #4B6775;
+}
 
-  .grid-container {
-  margin:0 auto;
-    margin-top: 10px;
-    padding-top: 10px;
-    width: 80%;
-  }
+.signup-button {
+  background-color: #4B6775;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  margin-right: 30px;
+}
 
-  .loc-selector-change {
-    color:white;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: rgb(171, 170, 170);
-    font-size: 24px;
-    font-weight: 600;
-  }
-  
-  .category-container{
-    background-color: white;
-  }
+.login-button {
+  background-color: #4B6775;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.grid-container {
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-top: 10px;
+  width: 80%;
+}
+
+.loc-selector-change {
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(171, 170, 170);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.category-container {
+  background-color: white;
+}

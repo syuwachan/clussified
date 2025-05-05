@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import Header from '@/components/Header';
+import './signup.css';
 
 interface SignUpFormInput {
 	username: string;
@@ -44,81 +45,82 @@ export default function SignUp() {
 	return (
 		<>
 			<Header />
-			<div className="max-h-screen flex items-center justify-center">
+			<div className="signup-container">
+				
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="w-1/2 mx-auto my-8 p-6 bg-white rounded-2xl shadow-md space-y-6"
+					className="signup-form"
 				>
 					{error && (
-						<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+						<div className="error-message">
 							{error}
 						</div>
 					)}
-					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-1">
+					<div className="form-group">
+					<p className="signup-title">Sign up</p>
+						<label className="form-label">
 							username
 						</label>
 						<input
 							type="text"
 							{...register('username', { required: true })}
-							className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+							className="form-input"
 							placeholder='This will be your profile address.Letters and numbers only'
 						/>
 					</div>
 
-					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-1">
+					<div className="form-group">
+						<label className="form-label">
 							email
 						</label>
 						<input
 							type="email"
 							{...register('email', { required: true })}
-							className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+							className="form-input"
 							placeholder='No spam,guaranteed!'
 						/>
 					</div>
 
-					<div>
-						<label className="block text-sm font-medium text-gray-700 mb-1">
+					<div className="form-group">
+						<label className="form-label">
 							password
 						</label>
 						<input
 							type="password"
 							{...register('password', { required: true })}
-							className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-							placeholder='this will be your profile address.Letters and numbers only'
+							className="form-input"
+							placeholder='Must be at least 8 characters'
 						/>
 					</div>
 
-					<div className="flex flex-col gap-4 p-4 border bg-white max-w-md">
-						<label className="flex items-center gap-3 p-3 cursor-pointer">
+					<div className="role-container">
+						<label className="role-label">
 							<input
 								type="radio"
 								value="client"
 								{...register('role', { required: true })}
-								className="accent-blue-600"
+								className="role-radio"
 							/>
-							<span className="text-sm font-medium">Client（View Ads）</span>
+							<span className="role-text">Client（View Ads）</span>
 						</label>
 
-						<label className="flex items-center gap-3 p-3 cursor-pointer">
+						<label className="role-label">
 							<input
 								type="radio"
 								value="advertiser"
 								{...register('role', { required: true })}
-								className="accent-blue-600"
+								className="role-radio"
 							/>
-							<span className="text-sm font-medium">Advertiser（Post Ads）</span>
+							<span className="role-text">Advertiser（Post Ads）</span>
 						</label>
 					</div>
 
 					<button
 						type="submit"
 						disabled={isLoading}
-						className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''
-							}`}
+						className="submit-button"
 					>
-						{isLoading ? '登録中...' : 'SignUp'}
+						{isLoading ? '登録中...' : 'Sign Up'}
 					</button>
 				</form>
 			</div>
