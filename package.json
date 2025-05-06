@@ -14,7 +14,6 @@
     "@radix-ui/react-dropdown-menu": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.0",
     "@supabase/supabase-js": "^2.49.4",
-    "autoprefixer": "^10.4.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "flowbite-react": "^0.11.7",
@@ -39,10 +38,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
     "babel-plugin-i18next-extract": "^1.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
-    "tailwindcss": "^4",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.5",
     "typescript": "^5"
   }
 }

@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import Header from '@/components/Header';
 import './signup.css';
+import Link from 'next/link';
 
 interface SignUpFormInput {
 	username: string;
@@ -46,7 +47,7 @@ export default function SignUp() {
 		<>
 			<Header />
 			<div className="signup-container">
-				
+
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className="signup-form"
@@ -57,7 +58,7 @@ export default function SignUp() {
 						</div>
 					)}
 					<div className="form-group">
-					<p className="signup-title">Sign up</p>
+						<p className="signup-title">Sign up</p>
 						<label className="form-label">
 							username
 						</label>
@@ -122,6 +123,12 @@ export default function SignUp() {
 					>
 						{isLoading ? '登録中...' : 'Sign Up'}
 					</button>
+					<p className="login-link">
+						Already have an account?
+						<Link href="/login" className="link">
+							Login
+						</Link>
+					</p>
 				</form>
 			</div>
 		</>

@@ -103,3 +103,21 @@
 	border-radius: 0.25rem;
 	margin-bottom: 1rem;
 }
+
+.login-link {
+	text-align: center;
+	margin-top: 1rem;
+	color: #6b7280;
+	font-size: 0.875rem;
+}
+
+.link {
+	color: #3b82f6;
+	text-decoration: none;
+	margin-left: 0.25rem;
+	font-weight: 500;
+}
+
+.link:hover {
+	text-decoration: underline;
+}

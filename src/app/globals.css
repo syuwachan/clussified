@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  --font-body: "Inter", sans-serif;
+  --color-brand: oklch(0.9 0.2 120);
+}
 
 * {
   font-family: 'Noto Sans JP', sans-serif;

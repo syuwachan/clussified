@@ -1,46 +1,59 @@
-'use client';
+'use client'
 
 import Header from '@/components/Header'
-import useAuth from '@/hooks/useAuth';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Card } from '@/components/ui/Card';
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Card } from '@/components/ui/Card'
+import supabase from '../../../lib/supabase'
+import AdDetailPage from '@/app/ads/[slug]'
 
-export default function buyselltrade() {
-	const [isClient, setIsClient] = useState(false);
-	const { user } = useAuth();
-	const router = useRouter();
+interface Ad {
+	id: string
+	title: string
+	slug: string
+	tag: string
+	author_name: string
+	location: string
+	date: string
+	images: string[]
+}
+
+export default function BuySellTrade() {
+	const [ads, setAds] = useState<Ad[]>([])
+	const router = useRouter()
 
 	useEffect(() => {
-		setIsClient(true);
-	}, []);
-
-	useEffect(() => {
-		if (isClient && !user) {
-			router.push('/login');
+		const fetchAds = async () => {
+			const { data, error } = await supabase.from('ads').select('*')
+			console.log(data)
+			if (error) {
+				console.error('Error fetching ads:', error)
+			} else {
+				console.log('📦 取得したデータ:', data)
+				setAds(data)
+			}
 		}
-	}, [isClient, user, router]);
-
-	if (!isClient) {
-		return null;
-	}
-
-	const handleViewDetail = () => {
-		console.log('View detail clicked');
-	};
+		fetchAds()
+	}, [])
 
 	return (
 		<>
 			<Header />
-			<Card
-				title="BNR32"
-				tag="Car"
-				authorName="Sui"
-				date="01 May, 2025"
-				location="Tokyo,Japan"
-				images={['/image/car1.png', '/image/car2.png', '/image/car3.png']}
-				onViewDetail={handleViewDetail}
-			/>
+			<div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
+				{ads.map((ad) => (
+					<Card
+						key={ad.id}
+						title={ad.title}
+						tag={ad.tag}
+						authorName={ad.author_name}
+						date={ad.date}
+						location={ad.location}
+						images={ad.images ?? []}
+						onViewDetail={() => router.push(`/ads/${ad.slug}`)}
+					/>
+				))}
+
+			</div>
 		</>
-	);
-} 
+	)
+}
