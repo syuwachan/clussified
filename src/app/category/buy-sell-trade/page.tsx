@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/Card'
 import supabase from '../../../lib/supabase'
-import AdDetailPage from '@/app/ads/[slug]'
+// import AdDetailPage from '@/app/ads/[slug]'
 
 interface Ad {
 	id: string
@@ -15,7 +15,7 @@ interface Ad {
 	author_name: string
 	location: string
 	date: string
-	images: string[]
+	imageUrls?: string
 }
 
 export default function BuySellTrade() {
@@ -29,8 +29,8 @@ export default function BuySellTrade() {
 			if (error) {
 				console.error('Error fetching ads:', error)
 			} else {
-				console.log('📦 取得したデータ:', data)
 				setAds(data)
+				console.log(data)
 			}
 		}
 		fetchAds()
@@ -48,11 +48,10 @@ export default function BuySellTrade() {
 						authorName={ad.author_name}
 						date={ad.date}
 						location={ad.location}
-						images={ad.images ?? []}
+						images={ad.imageUrls ?? []}
 						onViewDetail={() => router.push(`/ads/${ad.slug}`)}
 					/>
 				))}
-
 			</div>
 		</>
 	)
