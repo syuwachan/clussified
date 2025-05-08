@@ -15,7 +15,7 @@ interface Ad {
 	author_name: string
 	location: string
 	date: string
-	imageUrls?: string
+	imageUrls: string
 }
 
 export default function BuySellTrade() {
@@ -48,8 +48,8 @@ export default function BuySellTrade() {
 						authorName={ad.author_name}
 						date={ad.date}
 						location={ad.location}
-						images={ad.imageUrls ?? []}
-						onViewDetail={() => router.push(`/ads/${ad.slug}`)}
+						images={ad.imageUrls ? [ad.imageUrls] : []}
+						onViewDetail={() => router.push(`/ads/${ad.id}`)}
 					/>
 				))}
 			</div>

@@ -1,6 +1,8 @@
 // pages/ads/[slug].tsx
 import { GetServerSideProps } from 'next'
 import supabase from '@/lib/supabase'
+import { CardDetail } from '@/components/ui/CardDetail'
+import Header from '@/components/Header'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const slug = context.params?.slug as string
@@ -8,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { data, error } = await supabase
 		.from('ads')
 		.select('*')
-		.eq('slug', slug)
+		.eq('id', slug)
 		.single()
 
 	if (error || !data) {
@@ -24,15 +26,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function AdDetailPage({ ad }: { ad: any }) {
 	return (
-		<div className="p-6 max-w-3xl mx-auto">
-			<h1 className="text-2xl font-bold mb-2">{ad.title}</h1>
-			<p className="text-sm text-gray-500 mb-4">{ad.tag} | {ad.date} | {ad.location}</p>
-			<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-				{ad.images?.map((img: string, idx: number) => (
-					<img key={idx} src={img} alt={ad.title} className="rounded shadow" />
-				))}
-			</div>
-			<p className="text-gray-700">Posted by {ad.author_name}</p>
-		</div>
+		<>
+			<Header />
+			<CardDetail
+				className="p-6 max-w-3xl mx-auto mt-8"
+				title={ad.title}
+				authorName={ad.author_name}
+				date={ad.date}
+				location={ad.location}
+				description={ad.description}
+				price={ad.price}
+				detailImages={ad.imageUrls ? [ad.imageUrls] : []}
+			/>
+		</>
 	)
 }

@@ -19,23 +19,25 @@ export function Slider({ images, className }: CarouselProps) {
 				clickable: true,
 			}}
 			navigation
-			loop={true}
-			autoplay={{
+			loop={images.length > 1}
+			autoplay={images.length > 1 ? {
 				delay: 2500,
 				disableOnInteraction: false,
-			}}
+			} : false}
 			className={className}
 		>
 			{images.map((src: string, index: number) => (
 				<SwiperSlide key={`${index}`}>
-					<Image
-						src={src}
-						layout="responsive"
-						width={640}
-						height={400}
-						alt={`Slide ${index + 1}`}
-						className="rounded-lg"
-					/>
+					<div className="relative w-full h-[400px]">
+						<Image
+							src={src}
+							fill
+							priority={index === 0}
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+							alt={`Slide ${index + 1}`}
+							className="rounded-lg object-cover"
+						/>
+					</div>
 				</SwiperSlide>
 			))}
 		</Swiper>

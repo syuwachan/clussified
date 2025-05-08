@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/Carousel";
 import "@/app/Card.css";
-import Image from "next/image";
 
 interface CardProps {
 	className?: string;
