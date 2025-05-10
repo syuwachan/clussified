@@ -25,23 +25,24 @@ export function Card({
 	onViewDetail,
 }: CardProps) {
 	return (
-		<div className={cn("card-container", className)}>
+		<div className={cn("card-container flex", className)}>
 			{images.length > 0 ? (
-				<div className="card-image-container">
+				<div className="card-image-container w-1/3">
 					<Image
 						src={images[0]}
 						alt={title}
-						width={400}
+						width={300}
 						height={300}
-						className="object-cover w-full h-[300px] rounded-t-lg"
+						className="object-cover w-full h-full rounded-l-lg"
 					/>
 				</div>
 			) : null}
 
-			<div className="card-content">
+			<div className="card-content w-2/3 p-4">
 				<div className="card-header">
-					<span className="card-tag">{tag}</span>
+					{/* <span className="card-tag">{tag}</span> */}
 					<h3 className="card-title">{title}</h3>
+					{/* <p className="card-tag">{tag}</p> */}
 				</div>
 
 				<div className="author-info">

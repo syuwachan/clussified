@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/Card'
 import supabase from '../../../lib/supabase'
+import { SearchBar } from '@/components/ui/SearchBar'
 // import AdDetailPage from '@/app/ads/[slug]'
 
 interface Ad {
@@ -39,18 +40,21 @@ export default function BuySellTrade() {
 	return (
 		<>
 			<Header />
-			<div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
+			<SearchBar />
+			<div className="gap-6 p-6 ">
 				{ads.map((ad) => (
-					<Card
-						key={ad.id}
-						title={ad.title}
-						tag={ad.tag}
-						authorName={ad.author_name}
-						date={ad.date}
-						location={ad.location}
-						images={ad.imageUrls ? [ad.imageUrls] : []}
-						onViewDetail={() => router.push(`/ads/${ad.id}`)}
-					/>
+					<>
+						<Card
+							key={ad.id}
+							title={ad.title}
+							tag={ad.tag}
+							authorName={ad.author_name}
+							date={ad.date}
+							location={ad.location}
+							images={ad.imageUrls ? [ad.imageUrls] : []}
+							onViewDetail={() => router.push(`/ads/${ad.id}`)}
+						/>
+					</>
 				))}
 			</div>
 		</>
