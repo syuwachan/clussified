@@ -1,0 +1,167 @@
+.card-container {
+	max-width: 400px;
+	height: 520px;
+	margin: 0.5 rem;
+	padding: 2.2rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 1rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	background-color: white;
+	transition: transform 0.2s ease-in-out;
+}
+
+.card-container:hover {
+	transform: translateY(-4px);
+}
+
+.card-image-container {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	margin-bottom: 1.5rem;
+}
+
+.card-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.3s ease-in-out;
+}
+
+.card-image:hover {
+	transform: scale(1.05);
+}
+
+.card-content {
+	padding: 0;
+}
+
+.card-header {
+	margin-bottom: 1.5rem;
+}
+
+.card-tag {
+	display: inline-block;
+	padding: 0.25rem 0.75rem;
+	background-color: #f3f4f6;
+	color: #4b5563;
+	border-radius: 9999px;
+	font-size: 0.875rem;
+	font-weight: 500;
+	margin-bottom: 0.75rem;
+}
+
+.card-title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #111827;
+	margin-bottom: 1rem;
+}
+
+.author-info {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	padding: 1rem;
+	background-color: #f9fafb;
+	border-radius: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.author-info>div {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.author-info p:first-child {
+	font-size: 0.75rem;
+	color: #6b7280;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.author-name,
+.author-date,
+.author-location {
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: #374151;
+}
+
+.card-info__container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	border-top: 1px solid #e5e7eb;
+}
+
+.card-price {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.price-tag {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #111827;
+}
+
+.btn-view-detail {
+	padding: 0.75rem 1.5rem;
+	background-color: #3b82f6;
+	color: white;
+	border-radius: 0.5rem;
+	font-weight: 500;
+	transition: background-color 0.2s ease-in-out;
+	border: none;
+	cursor: pointer;
+}
+
+.btn-view-detail:hover {
+	background-color: #2563eb;
+}
+
+/* Swiperのスタイル */
+/* .swiper {
+	width: 100%;
+	height: 300px;
+	border-radius: 0.75rem;
+	overflow: hidden;
+} */
+
+/* .swiper-slide {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f3f4f6;
+} */
+
+.swiper-button-next,
+.swiper-button-prev {
+	color: white !important;
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 40px !important;
+	height: 40px !important;
+	border-radius: 50%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+	font-size: 20px !important;
+}
+
+.swiper-pagination-bullet {
+	background-color: white !important;
+	opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: #3b82f6 !important;
+	opacity: 1;
+}

@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuth from '../../hooks/useAuth';
 import Header from '@/components/Header';
+import './login.css';
 
 export default function LoginPage() {
 	const router = useRouter();
 	const { onLogin } = useAuth();
-
-	const[username,setUserName]= useState('');
+	const [username, setUserName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -31,43 +31,42 @@ export default function LoginPage() {
 
 	return (
 		<>
-		<Header></Header>
-		<div className="max-w-md mx-auto mt-16 p-6 border rounded shadow">
-			<form onSubmit={handleLogin} className="space-y-4">
-			<input
-					type="name"
-					placeholder="your username"
-					value={username}
-					onChange={(e) => setUserName(e.target.value)}
-					className="w-full p-2 border rounded"
-					required
-				/>
-				<input
-					type="email"
-					placeholder="your email address"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					className="w-full p-2 border rounded"
-					required
-				/>
-				<input
-					type="password"
-					placeholder="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					className="w-full p-2 border rounded"
-					required
-				/>
-				{error && <p className="text-red-500">{error}</p>}
-				<button
-					type="submit"
-					disabled={loading}
-					className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-				>
-					{loading ? 'logging...' : 'login'}
-				</button>
-			</form>
-		</div>
+			<Header></Header>
+			<div className="login-container">
+				<form onSubmit={handleLogin} className="login-form">
+					<h1 className="login-title">Login</h1>
+					<label className="form-label">
+							email
+						</label>
+					<input
+						type="email"
+						placeholder="your email address"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						className="login-input"
+						required
+					/>
+					<label className="form-label">
+							password
+						</label>
+					<input
+						type="password"
+						placeholder="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						className="login-input"
+						required
+					/>
+					{error && <p className="login-error">{error}</p>}
+					<button
+						type="submit"
+						disabled={loading}
+						className="login-button"
+					>
+						{loading ? 'logging...' : 'login'}
+					</button>
+				</form>
+			</div>
 		</>
 	);
 } 

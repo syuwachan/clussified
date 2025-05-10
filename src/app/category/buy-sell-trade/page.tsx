@@ -1,70 +1,58 @@
-'use client';
+'use client'
 
 import Header from '@/components/Header'
-import useAuth from '@/hooks/useAuth';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import "./Card.css";
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Card } from '@/components/ui/Card'
+import supabase from '../../../lib/supabase'
+// import AdDetailPage from '@/app/ads/[slug]'
 
-export default function buyselltrade() {
-	const [isClient, setIsClient] = useState(false);
-	const { user } = useAuth();
-	const router = useRouter();
+interface Ad {
+	id: string
+	title: string
+	slug: string
+	tag: string
+	author_name: string
+	location: string
+	date: string
+	imageUrls: string
+}
+
+export default function BuySellTrade() {
+	const [ads, setAds] = useState<Ad[]>([])
+	const router = useRouter()
 
 	useEffect(() => {
-		setIsClient(true);
-	}, []);
-
-	useEffect(() => {
-		if (isClient && !user) {
-			router.push('/login');
+		const fetchAds = async () => {
+			const { data, error } = await supabase.from('ads').select('*')
+			console.log(data)
+			if (error) {
+				console.error('Error fetching ads:', error)
+			} else {
+				setAds(data)
+				console.log(data)
+			}
 		}
-	}, [isClient, user, router]);
-
-	if (!isClient) {
-		return null;
-	}
+		fetchAds()
+	}, [])
 
 	return (
 		<>
 			<Header />
-
-
-			<div className="card-container">
-				<div className="card-image-container">
-					<img className="card-image" src="/image/car.png" title="Corvette C7" />
-				</div>
-				<div className="card-content">
-					<div className="card-header">
-						<p className="card-tag">
-							Car
-						</p>
-						<div className="card-title">Corvette C7</div>
-					</div>
-					<div className="card-author">
-						<div className="author-info">
-							<div>
-								<p className="">author Name</p>
-								<p className="author-name">Sui</p>
-							</div>
-							<div>
-								<p className="">Date</p>
-								<p className="author-date">01 Apr, 2025</p>
-							</div>
-							<div>
-								<p className="">Location</p>
-								<p className="author-location">Tokyo</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className='card-info__container'>
-					<button className="btn-view-detail">
-						View Detail
-					</button>
-				</div>
+			<div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
+				{ads.map((ad) => (
+					<Card
+						key={ad.id}
+						title={ad.title}
+						tag={ad.tag}
+						authorName={ad.author_name}
+						date={ad.date}
+						location={ad.location}
+						images={ad.imageUrls ? [ad.imageUrls] : []}
+						onViewDetail={() => router.push(`/ads/${ad.id}`)}
+					/>
+				))}
 			</div>
 		</>
-	);
-} 
+	)
+}

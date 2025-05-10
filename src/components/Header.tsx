@@ -31,8 +31,8 @@ export default function Header() {
 				<p>こんにちは、{userName} さん！</p>
 			) : (
 				<div className="flex justify-between">
-					<Link href="/signup" className="p-2">{t('translations.signup')}</Link>
-					<Link href="/login" className="p-2">{t('translations.login')}</Link>
+					<Link href="/signup" className="">{t('translations.signup')}</Link>
+					<Link href="/login" className="pl-8">{t('translations.login')}</Link>
 				</div>
 			)}
 
