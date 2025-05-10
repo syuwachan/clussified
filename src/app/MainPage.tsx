@@ -8,7 +8,7 @@ export default function MainPage() {
     <div className="mt-4 flex items-center justify-center bg-radial-[at_25%_25%] from-white to-zinc-900 to-75%">
       <form className="w-1/2 p-4 bg-white rounded-xl shadow-md">
         <div className='text-center my-4 mx-4'>
-          <div className="loc-selector">Your Location <span className='loc-selector-span'>Tokyo
+          <div className="loc-selector text-[#616161]">Your Location <span className='loc-selector-span'>Tokyo
           </span> <a href="#" className="loc-selector-change">Change</a>
           </div>
           <div className="grid grid-cols-3 gap-4">

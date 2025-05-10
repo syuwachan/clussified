@@ -32,7 +32,7 @@ export default function Header() {
 			) : (
 				<div className="flex justify-between">
 					<Link href="/signup" className="">{t('translations.signup')}</Link>
-					<Link href="/login" className="">{t('translations.login')}</Link>
+					<Link href="/login" className="pl-8">{t('translations.login')}</Link>
 				</div>
 			)}
 
