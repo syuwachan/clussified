@@ -14,11 +14,11 @@ export default function MainPage() {
           <div className="grid grid-cols-3 gap-4">
           <Link href="/category/buy-sell-trade" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <Car className="w-8 h-8" />
-              <p className='text-sm font-light'>{t('Motors')}</p>
+              <p className='text-sm font-light'>{t('translations.motors')}</p>
             </Link>
             <Link href="/category/event" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <House className="w-8 h-8" />
-              <p className='text-sm font-light'>{t('Property')}</p>
+              <p className='text-sm font-light'>{t('translations.property')}</p>
             </Link>
             <Link href="/category/buy-sell-trade" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <ShoppingCart className="w-8 h-8" />

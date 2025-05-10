@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
+"use client"
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { I18nextProvider } from 'react-i18next';
+import i18n from '@/i18n';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,11 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "J-Classified",
-  description: "J-Classified App",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +25,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <I18nextProvider i18n={i18n}>
+          {children}
+        </I18nextProvider>
       </body>
     </html>
   );
