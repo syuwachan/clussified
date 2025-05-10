@@ -42,6 +42,7 @@ export default function AdDetailPage() {
 				description={ad.description}
 				price={ad.price}
 				detailImages={ad.imageUrls ? [ad.imageUrls] : []}
+				created_at={ad.created_at}
 			/>
 		</>
 	)

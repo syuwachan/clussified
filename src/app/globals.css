@@ -1,14 +1,14 @@
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@theme {
-  --font-body: "Inter", sans-serif;
-  --color-brand: oklch(0.9 0.2 120);
+@layer base {
+  :root {
+    --font-body: "Inter", sans-serif;
+    --color-brand: oklch(0.9 0.2 120);
+  }
 }
 
 * {
@@ -22,10 +22,9 @@ a {
 }
 
 .loc-selector {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 50px;
-  margin-top: 80px;
+  margin-bottom: 30px;
 }
 
 .loc-selector-span {
@@ -35,18 +34,18 @@ a {
 .signup-button {
   background-color: #4B6775;
   color: white;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
-  font-size: 18px;
+  font-size: 24px;
   margin-right: 30px;
 }
 
 .login-button {
   background-color: #4B6775;
   color: white;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .grid-container {
@@ -58,10 +57,9 @@ a {
 
 .loc-selector-change {
   color: white;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 8px;
   background-color: rgb(171, 170, 170);
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
 }
 

@@ -7,10 +7,11 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/Search.tsx',
     './src/app/signup/page.tsx',
+    './src/components/ui/CardDetail.tsx'  // この行を追加
   ],
   theme: {
     extend: {},
   },
   plugins: [],
 }
-export default config 
+export default config

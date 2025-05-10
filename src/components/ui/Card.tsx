@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/Carousel";
 import "@/app/Card.css";
+import Image from "next/image";
 
 interface CardProps {
 	className?: string;
@@ -27,7 +28,13 @@ export function Card({
 		<div className={cn("card-container", className)}>
 			{images.length > 0 ? (
 				<div className="card-image-container">
-					<Slider images={images} />
+					<Image
+						src={images[0]}
+						alt={title}
+						width={400}
+						height={300}
+						className="object-cover w-full h-[300px] rounded-t-lg"
+					/>
 				</div>
 			) : null}
 

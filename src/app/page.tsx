@@ -9,7 +9,7 @@ export default function Home() {
   return (
   <>
   <Header></Header>
-  <Search></Search>
+  {/* <Search></Search> */}
   <MainPage></MainPage>
   </>
 
