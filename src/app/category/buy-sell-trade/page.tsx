@@ -43,18 +43,16 @@ export default function BuySellTrade() {
 			<SearchBar />
 			<div className="gap-6 p-6 ">
 				{ads.map((ad) => (
-					<>
-						<Card
-							key={ad.id}
-							title={ad.title}
-							tag={ad.tag}
-							authorName={ad.author_name}
-							date={ad.date}
-							location={ad.location}
-							images={ad.imageUrls ? [ad.imageUrls] : []}
-							onViewDetail={() => router.push(`/ads/${ad.id}`)}
-						/>
-					</>
+					<Card
+						key={ad.id}
+						title={ad.title}
+						tag={ad.tag}
+						authorName={ad.author_name}
+						date={ad.date}
+						location={ad.location}
+						images={ad.imageUrls ? [ad.imageUrls] : []}
+						onViewDetail={() => router.push(`/ads/${ad.id}`)}
+					/>
 				))}
 			</div>
 		</>

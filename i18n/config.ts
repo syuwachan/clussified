@@ -11,16 +11,16 @@ i18n
     returnEmptyString: false, 
     resources: { 
       en: {
-        translation: require('./locales/en.json')
+        translation: require('./locales/en/translation.json')
       },
       ja: {
-        translation: require('./locales/ja.json')
+        translation: require('./locales/ja/translation.json')
       },
       zh: {
-        translation: require('./locales/zh.json')
+        translation: require('./locales/zh/translation.json')
       },
       ko: {
-        translation: require('./locales/ko.json')
+        translation: require('./locales/ko/translation.json')
       }
     },
     interpolation: {
