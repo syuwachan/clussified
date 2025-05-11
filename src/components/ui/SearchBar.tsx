@@ -26,9 +26,8 @@ export function SearchBar({ className }: SearchBarProps) {
 					<input
 						type="text"
 						placeholder='Keyword...'
-						className="w-full p-2 pl-10 border rounded-lg"
+						className="w-full p-2 border rounded-lg"
 					/>
-					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
 				</div>
 				<div className="relative w-1/3">
 					<select className="w-full p-2 border rounded-lg bg-white">
@@ -40,6 +39,12 @@ export function SearchBar({ className }: SearchBarProps) {
 						))}
 					</select>
 				</div>
+
+				<button className="bg-blue-500 text-white px-6 rounded-lg hover:bg-blue-600 transition-colors flex items-center gap-2">
+					<Search className="w-4 h-4" />
+					Search
+				</button>
+
 			</div>
 		</div>
 	)
