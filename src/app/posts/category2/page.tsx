@@ -121,27 +121,33 @@ export default function AdDetails() {
 				return
 			}
 
+			const postData = {
+				user_id: user.id,
+				title: formData.title,
+				description: formData.description,
+				location: formData.location,
+				contact_name: formData.name,
+				contact_phone: formData.phone,
+				contact_email: formData.email,
+				images: images,
+				category: category,
+				created_at: new Date().toISOString()
+			}
+
+			// Supabaseに保存
 			const { error } = await supabase
 				.from('posts')
-				.insert([
-					{
-						user_id: user.id,
-						title: formData.title,
-						description: formData.description,
-						location: formData.location,
-						contact_name: formData.name,
-						contact_phone: formData.phone,
-						contact_email: formData.email,
-						images: images,
-						category: category,
-						created_at: new Date().toISOString()
-					}
-				])
+				.insert([postData])
 
 			if (error) throw error
 
+			// ローカルストレージに保存
+			const localPosts = JSON.parse(localStorage.getItem('localPosts') || '[]')
+			localPosts.push(postData)
+			localStorage.setItem('localPosts', JSON.stringify(localPosts))
+
 			alert('投稿が完了しました')
-			router.push('/') // 投稿完了後、トップページにリダイレクト
+			router.push('/')
 		} catch (error) {
 			console.error('Error posting ad:', error)
 			alert('投稿に失敗しました')

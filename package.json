@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "i18next-extract": "babel --config-file ./i18n/babel.config.json './src/**/*.{js,jsx,ts,tsx}'"
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.4",
