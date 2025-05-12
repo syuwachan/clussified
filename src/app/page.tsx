@@ -1,16 +1,16 @@
 "use client"
-import Search from '@/components/Search';
 import MainPage from './MainPage';
 import Header from '@/components/Header'
 import Footer from '../components/Footer'
 
 export default function Home() {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      {/* <Search /> */}
-      <MainPage />
+      <main className="flex-grow">
+        <MainPage />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
