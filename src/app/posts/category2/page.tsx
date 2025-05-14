@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import { Car, Home, ShoppingBag, Utensils, Calendar, Users, Plane, Briefcase, Heart, X, Upload } from 'lucide-react'
 import Header from '@/components/Header'
@@ -306,6 +306,7 @@ export default function AdDetails() {
 							type="submit"
 							disabled={uploading}
 							className="w-full bg-blue-500 text-white py-3 px-4 rounded-md hover:bg-blue-600 transition-colors font-medium disabled:bg-blue-300"
+							onClick={handleSubmit}
 						>
 							{uploading ? '投稿中...' : 'Post Ad'}
 						</button>

@@ -33,8 +33,10 @@ export default function SignUp() {
 		try {
 			setIsLoading(true);
 			setError(null);
-			const { username, email, password } = data;
-			await onSignup(email, password, username);
+			const { username, email, password, role } = data;
+			const { error } = await onSignup(email, password, username, role);
+
+			if (error) throw error;
 			router.push('/');
 		} catch (err) {
 			setError(err instanceof Error ? err.message : '登録に失敗しました');
@@ -47,7 +49,6 @@ export default function SignUp() {
 		<>
 			<Header />
 			<div className="signup-container">
-
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className="signup-form"
@@ -58,39 +59,39 @@ export default function SignUp() {
 						</div>
 					)}
 					<div className="form-group">
-						<p className="signup-title">Sign up</p>
+						<p className="signup-title">SignUp</p>
 						<label className="form-label">
-							username
+							Username
 						</label>
 						<input
 							type="text"
 							{...register('username', { required: true })}
 							className="form-input"
-							placeholder='This will be your profile address.Letters and numbers only'
+							placeholder='Enter your username'
 						/>
 					</div>
 
 					<div className="form-group">
 						<label className="form-label">
-							email
+							Email
 						</label>
 						<input
 							type="email"
 							{...register('email', { required: true })}
 							className="form-input"
-							placeholder='No spam,guaranteed!'
+							placeholder='Enter your email'
 						/>
 					</div>
 
 					<div className="form-group">
 						<label className="form-label">
-							password
+							Password
 						</label>
 						<input
 							type="password"
 							{...register('password', { required: true })}
 							className="form-input"
-							placeholder='Must be at least 8 characters'
+							placeholder='Enter your password'
 						/>
 					</div>
 
@@ -102,7 +103,7 @@ export default function SignUp() {
 								{...register('role', { required: true })}
 								className="role-radio"
 							/>
-							<span className="role-text">Client（View Ads）</span>
+							<span className="role-text">Client</span>
 						</label>
 
 						<label className="role-label">
@@ -112,7 +113,7 @@ export default function SignUp() {
 								{...register('role', { required: true })}
 								className="role-radio"
 							/>
-							<span className="role-text">Advertiser（Post Ads）</span>
+							<span className="role-text">Advertiser</span>
 						</label>
 					</div>
 
@@ -121,7 +122,7 @@ export default function SignUp() {
 						disabled={isLoading}
 						className="submit-button"
 					>
-						{isLoading ? '登録中...' : 'Sign Up'}
+						{isLoading ? 'registering...' : 'Signup'}
 					</button>
 					<p className="login-link">
 						Already have an account?
