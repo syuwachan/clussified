@@ -7,11 +7,11 @@ import useAuth from '../../hooks/useAuth';
 import Header from '@/components/Header';
 import './signup.css';
 import Link from 'next/link';
+import supabase from '../../lib/supabase';
 
 interface SignUpFormInput {
 	username: string;
 	email: string;
-	password: string;
 	role: 'client' | 'advertiser';
 }
 
@@ -20,11 +20,11 @@ export default function SignUp() {
 	const { onSignup } = useAuth();
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
+
 	const { register, handleSubmit } = useForm<SignUpFormInput>({
 		defaultValues: {
-			email: '',
-			password: '',
 			username: '',
+			email: '',
 			role: 'client',
 		},
 	});
@@ -33,10 +33,32 @@ export default function SignUp() {
 		try {
 			setIsLoading(true);
 			setError(null);
-			const { username, email, password, role } = data;
-			const { error } = await onSignup(email, password, username, role);
 
-			if (error) throw error;
+			const { username, email, role } = data;
+			const { error: signUpError, data: { user } } = await onSignup(email, username, role);
+
+			if (signUpError) throw signUpError;
+			if (!user || !user.id) throw new Error('ユーザー登録に失敗しました');
+
+			const { error: insertError } = await supabase
+				.from('user_login_data')
+				.insert([
+					{
+						user_id: user.id,
+						username,
+						email,
+						role,
+						created_at: new Date().toISOString(),
+					},
+				]);
+
+			if (insertError) {
+				if (insertError.message.includes('row-level security')) {
+					throw new Error('RLSポリシーによってデータの挿入が拒否されました。');
+				}
+				throw insertError;
+			}
+
 			router.push('/');
 		} catch (err) {
 			setError(err instanceof Error ? err.message : '登録に失敗しました');
@@ -49,51 +71,30 @@ export default function SignUp() {
 		<>
 			<Header />
 			<div className="signup-container">
-				<form
-					onSubmit={handleSubmit(onSubmit)}
-					className="signup-form"
-				>
-					{error && (
-						<div className="error-message">
-							{error}
-						</div>
-					)}
+				<form onSubmit={handleSubmit(onSubmit)} className="signup-form">
+					{error && <div className="error-message">{error}</div>}
+
 					<div className="form-group">
-						<p className="signup-title">SignUp</p>
-						<label className="form-label">
-							Username
-						</label>
+						<p className="signup-title">Sign Up</p>
+						<label className="form-label">Username</label>
 						<input
 							type="text"
 							{...register('username', { required: true })}
 							className="form-input"
-							placeholder='Enter your username'
+							placeholder="Enter your username"
 						/>
 					</div>
 
 					<div className="form-group">
-						<label className="form-label">
-							Email
-						</label>
+						<label className="form-label">Email</label>
 						<input
 							type="email"
 							{...register('email', { required: true })}
 							className="form-input"
-							placeholder='Enter your email'
+							placeholder="Enter your email"
 						/>
 					</div>
 
-					<div className="form-group">
-						<label className="form-label">
-							Password
-						</label>
-						<input
-							type="password"
-							{...register('password', { required: true })}
-							className="form-input"
-							placeholder='Enter your password'
-						/>
-					</div>
 
 					<div className="role-container">
 						<label className="role-label">
@@ -122,10 +123,11 @@ export default function SignUp() {
 						disabled={isLoading}
 						className="submit-button"
 					>
-						{isLoading ? 'registering...' : 'Signup'}
+						{isLoading ? 'Registering...' : 'Signup'}
 					</button>
+
 					<p className="login-link">
-						Already have an account?
+						Already have an account?{' '}
 						<Link href="/login" className="link">
 							Login
 						</Link>
@@ -134,4 +136,4 @@ export default function SignUp() {
 			</div>
 		</>
 	);
-} 
+}

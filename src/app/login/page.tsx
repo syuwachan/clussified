@@ -9,7 +9,6 @@ import './login.css';
 export default function LoginPage() {
 	const router = useRouter();
 	const { onLogin } = useAuth();
-	const [username, setUserName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -20,7 +19,7 @@ export default function LoginPage() {
 		setLoading(true);
 		setError('');
 		try {
-			await onLogin(email, password);
+			await onLogin({ email, password });
 			router.push('/');
 		} catch (err: any) {
 			setError(err.message);
@@ -36,11 +35,11 @@ export default function LoginPage() {
 				<form onSubmit={handleLogin} className="login-form">
 					<h1 className="login-title">Login</h1>
 					<label className="form-label">
-							email
+							Email
 						</label>
 					<input
-						type="email"
-						placeholder="your email address"
+						type="text"
+						placeholder="your email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						className="login-input"

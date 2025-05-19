@@ -21,7 +21,7 @@ export function SearchBar({ className }: SearchBarProps) {
 
 	return (
 		<div className={className}>
-			<div className="flex gap-2 max-w-2xl mx-auto">
+			<div className="flex gap-2 max-w-2xl mx-auto mt-12">
 				<div className="relative w-2/3">
 					<input
 						type="text"
