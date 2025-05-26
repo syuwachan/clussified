@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import supabase from '../lib/supabase';
-import { Session, User } from '@supabase/supabase-js';
+import { createClient, Session, User } from '@supabase/supabase-js';
+import { redirect, useRouter } from 'next/navigation';
 
 export default function useAuth() {
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const getSession = async () => {
@@ -20,33 +22,26 @@ export default function useAuth() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string) => {
-    const { data: authData, error: authError } = await supabase.auth.signUp({ email, password });
-    
-    if (authError) {
-      return { error: authError };
+  const signup = async (formData: FormData) => {
+    // フォームからデータ取得
+    const data = {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
     }
-
-    if (authData.user) {
-      // usersテーブルにユーザー情報を保存
-      const { error: profileError } = await supabase
-        .from('users')
-        .insert([
-          {
-            id: authData.user.id,
-            email: authData.user.email,
-            created_at: new Date().toISOString(),
-          }
-        ]);
-
-      if (profileError) {
-        console.error('Error creating user profile:', profileError);
-        return { error: profileError };
-      }
+  
+    // サインアップ
+    const { error } = await supabase.auth.signUp(data)
+  
+    // サインアップエラーの場合
+    if (error) {
+      return { error };
     }
-
-    return { data: authData, error: null };
-  };
+  
+    // トップページのlayoutを再検証
+ 
+    // トップページへリダイレクト
+    redirect('/')
+  }
 
   const signIn = async (email: string, password: string) => {
     return await supabase.auth.signInWithPassword({ email, password });
@@ -58,7 +53,7 @@ export default function useAuth() {
 
   return {
     user,
-    signUp,
+    signup,
     signIn,
     signOut,
   };

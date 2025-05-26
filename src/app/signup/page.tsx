@@ -5,7 +5,8 @@ import useAuth from '@/hooks/useAuth';
 import './signup.css';
 
 export default function SignUpPage() {
-	const { user, signUp, signOut } = useAuth();
+	const { user, signup, signOut } = useAuth();
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState<string | null>(null);
@@ -14,33 +15,37 @@ export default function SignUpPage() {
 	const handleSignUp = async () => {
 		setIsLoading(true);
 		setError(null);
-		try {
-			const { error } = await signUp(email, password);
-			if (error) {
-				throw new Error('データベースエラー: 新しいユーザーの保存に失敗しました');
-			}
-		} catch (err) {
-			console.error('Sign up error:', err);
-			setError(err instanceof Error ? err.message : 'サインアップに失敗しました');
-		} finally {
+
+		// メールアドレスのバリデーション
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		if (!emailRegex.test(email)) {
+			setError('有効なメールアドレスを入力してください');
 			setIsLoading(false);
+			return;
 		}
+
+		// パスワードのバリデーション
+		if (password.length < 6) {
+			setError('パスワードは6文字以上で入力してください');
+			setIsLoading(false);
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append('email', email);
+		formData.append('password', password);
+
+		const { error } = await signup(formData);
+		setError(error?.message ?? null);
+		setIsLoading(false);
 	};
 
 	const handleSignOut = async () => {
 		setIsLoading(true);
 		setError(null);
-		try {
-			const { error } = await signOut();
-			if (error) {
-				throw new Error(error.message);
-			}
-		} catch (err) {
-			console.error('Sign out error:', err);
-			setError(err instanceof Error ? err.message : 'サインアウトに失敗しました');
-		} finally {
-			setIsLoading(false);
-		}
+		const { error } = await signOut();
+		setError(error?.message ?? null);
+		setIsLoading(false);
 	};
 
 	return (
@@ -65,7 +70,7 @@ export default function SignUpPage() {
 				) : (
 					<>
 						<div>
-							<h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
+							<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
 								Sign Up
 							</h2>
 							<p className="mt-2 text-center text-sm text-gray-600">
@@ -86,7 +91,7 @@ export default function SignUpPage() {
 										name="email"
 										type="email"
 										required
-										className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+										className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
 										placeholder="Email"
 										value={email}
 										onChange={(e) => setEmail(e.target.value)}
@@ -94,7 +99,7 @@ export default function SignUpPage() {
 								</div>
 								<div>
 									<label htmlFor="password" className="sr-only">
-										Password
+										Pass
 									</label>
 									<input
 										id="password"
@@ -135,15 +140,10 @@ export default function SignUpPage() {
 											</svg>
 										</span>
 									) : null}
-									{isLoading ? 'Signing up...' : 'Sign Up'}
+									{isLoading ? '登録中...' : '新規登録'}
 								</button>
 							</div>
 						</form>
-						<div className="mt-4 text-center text-sm text-gray-600">
-							<p>
-								By signing up, you agree to our <a href="/terms" className="font-medium text-indigo-600 hover:text-indigo-500">Terms of Service</a> and <a href="/privacy" className="font-medium text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.
-							</p>
-						</div>
 					</>
 				)}
 			</div>
