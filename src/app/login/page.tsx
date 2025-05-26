@@ -1,71 +1,133 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import useAuth from '../../hooks/useAuth';
-import Header from '@/components/Header';
+import useAuth from '@/hooks/useAuth';
+import Link from 'next/link';
 import './login.css';
 
 export default function LoginPage() {
-	const router = useRouter();
-	const { onLogin } = useAuth();
+	const { user, signIn, signOut } = useAuth();
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
-	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
 
-	const handleLogin = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setLoading(true);
-		setError('');
-		try {
-			await onLogin({ email, password });
-			router.push('/');
-		} catch (err: any) {
-			setError(err.message);
-		} finally {
-			setLoading(false);
-		}
+	const handleSignIn = async () => {
+		setIsLoading(true);
+		setError(null);
+		const { error } = await signIn(email, password);
+		setError(error?.message ?? null);
+		setIsLoading(false);
+	};
+
+	const handleSignOut = async () => {
+		setIsLoading(true);
+		setError(null);
+		const { error } = await signOut();
+		setError(error?.message ?? null);
+		setIsLoading(false);
 	};
 
 	return (
-		<>
-			<Header></Header>
-			<div className="login-container">
-				<form onSubmit={handleLogin} className="login-form">
-					<h1 className="login-title">Login</h1>
-					<label className="form-label">
-							Email
-						</label>
-					<input
-						type="text"
-						placeholder="your email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						className="login-input"
-						required
-					/>
-					<label className="form-label">
-							password
-						</label>
-					<input
-						type="password"
-						placeholder="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						className="login-input"
-						required
-					/>
-					{error && <p className="login-error">{error}</p>}
-					<button
-						type="submit"
-						disabled={loading}
-						className="login-button"
-					>
-						{loading ? 'logging...' : 'login'}
-					</button>
-				</form>
+		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+			<div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
+				{user ? (
+					<div className="text-center">
+						<h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+							Welcome!
+						</h2>
+						<p className="mt-2 text-sm text-gray-600">
+							Logged in as {user.email}
+						</p>
+						<button
+							onClick={handleSignOut}
+							disabled={isLoading}
+							className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
+						>
+							{isLoading ? 'Signing out...' : 'Sign Out'}
+						</button>
+					</div>
+				) : (
+					<>
+						<div>
+							<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+								Login
+							</h2>
+							<p className="mt-2 text-center text-sm text-gray-600">
+								Don't have an account?
+								<Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500 ml-1">
+									Sign Up
+								</Link>
+							</p>
+						</div>
+						<form className="mt-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
+							<div className="rounded-md shadow-sm -space-y-px">
+								<div>
+									<label htmlFor="email" className="sr-only">
+										Email
+									</label>
+									<input
+										id="email"
+										name="email"
+										type="email"
+										required
+										className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+										placeholder="Email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+								</div>
+								<div>
+									<label htmlFor="password" className="sr-only">
+										Password
+									</label>
+									<input
+										id="password"
+										name="password"
+										type="password"
+										required
+										className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+										placeholder="Password"
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+									/>
+								</div>
+							</div>
+
+							{error && (
+								<div className="rounded-md bg-red-50 p-4">
+									<div className="flex">
+										<div className="ml-3">
+											<h3 className="text-sm font-medium text-red-800">
+												{error}
+											</h3>
+										</div>
+									</div>
+								</div>
+							)}
+
+							<div>
+								<button
+									onClick={handleSignIn}
+									disabled={isLoading}
+									className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+								>
+									{isLoading ? (
+										<span className="absolute left-0 inset-y-0 flex items-center pl-3">
+											<svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+												<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+												<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+										</span>
+									) : null}
+									{isLoading ? 'Signing in...' : 'Sign In'}
+								</button>
+							</div>
+						</form>
+					</>
+				)}
 			</div>
-		</>
+		</div>
 	);
-} 
+}
