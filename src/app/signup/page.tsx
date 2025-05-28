@@ -54,10 +54,10 @@ export default function SignUpPage() {
 				{user ? (
 					<div className="text-center">
 						<h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-							ようこそ！
+							Welcome!
 						</h2>
 						<p className="mt-2 text-sm text-gray-600">
-							{user.email} としてログイン中
+							You are logged in as {user.email}
 						</p>
 						<button
 							onClick={handleSignOut}
@@ -140,7 +140,7 @@ export default function SignUpPage() {
 											</svg>
 										</span>
 									) : null}
-									{isLoading ? '登録中...' : '新規登録'}
+									{isLoading ? 'Signing up...' : 'Sign up'}
 								</button>
 							</div>
 						</form>

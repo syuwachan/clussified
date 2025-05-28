@@ -23,23 +23,14 @@ export default function useAuth() {
   }, []);
 
   const signup = async (formData: FormData) => {
-    // フォームからデータ取得
     const data = {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
     }
-  
-    // サインアップ
     const { error } = await supabase.auth.signUp(data)
-  
-    // サインアップエラーの場合
     if (error) {
       return { error };
     }
-  
-    // トップページのlayoutを再検証
- 
-    // トップページへリダイレクト
     redirect('/')
   }
 

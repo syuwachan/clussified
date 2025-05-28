@@ -10,11 +10,11 @@ export default function MainPage() {
           </span> <a href="#" className="loc-selector-change">Change</a>
           </div>
           <div className="grid grid-cols-3 gap-4">
-          <Link href="/category/buy-sell-trade" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
+          <Link href="/category/motors" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <Car className="w-8 h-8" />
               <p className='text-sm font-light'>motors</p>
             </Link>
-            <Link href="/category/event" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
+            <Link href="/category/property" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <House className="w-8 h-8" />
               <p className='text-sm font-light'>property</p>
             </Link>
@@ -34,7 +34,7 @@ export default function MainPage() {
               <Globe className="w-8 h-8" />
               <p className='text-sm font-light'>foreigners welcome</p>
             </Link>
-            <Link href="/category/tour" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
+            <Link href="/category/tour-experience" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <MapPin className="w-8 h-8" />
               <p className='text-sm font-light'>tour experience</p>
             </Link>
