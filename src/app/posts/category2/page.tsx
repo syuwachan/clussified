@@ -130,7 +130,6 @@ export default function AdDetails() {
 				contact_phone: formData.phone,
 				contact_email: formData.email,
 				images: images,
-				category: category,
 				created_at: new Date().toISOString()
 			}
 
