@@ -6,9 +6,10 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
+import { Upload, X } from 'lucide-react'
 
 export default function AdDetails() {
-	const [category, setCategory] = useState('')
+	// const [category, setCategory] = useState('')
 	const [images, setImages] = useState<string[]>([])
 	const [isDragging, setIsDragging] = useState(false)
 	const [uploading, setUploading] = useState(false)
@@ -79,7 +80,7 @@ export default function AdDetails() {
 		if (files) {
 			await handleImageUpload(files)
 		}
-	}, [])
+	}, [handleImageUpload])
 
 	const removeImage = async (index: number) => {
 		const imageUrl = images[index]

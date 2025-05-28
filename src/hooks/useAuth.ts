@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import supabase from '../lib/supabase';
-import { createClient, Session, User } from '@supabase/supabase-js';
-import { redirect, useRouter } from 'next/navigation';
+import { User } from '@supabase/supabase-js';
+import { redirect} from 'next/navigation';
 
 export default function useAuth() {
   const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const getSession = async () => {

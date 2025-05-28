@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 import { Search } from 'lucide-react'
 
 interface SearchBarProps {

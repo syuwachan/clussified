@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { MessageCircle } from 'lucide-react'
 import supabase from '@/lib/supabase';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface CardDetailProps {
 	className?: string;
@@ -21,15 +20,12 @@ export function CardDetail({
 	className,
 	title,
 	authorName,
-	date,
 	location,
 	description,
-	price,
 	detailImages = [],
 	created_at,
 	listingId
 }: CardDetailProps) {
-	const [images, setImages] = useState([]);
 
 	useEffect(() => {
 		if (!listingId) return;  // listingIdが存在しない場合は早期リターン

@@ -1,12 +1,10 @@
 import { cn } from "@/lib/utils";
-import { Slider } from "@/components/ui/Carousel";
 import "@/app/Card.css";
 import Image from "next/image";
 
 interface CardProps {
 	className?: string;
 	title: string;
-	tag: string;
 	authorName: string;
 	date: string;
 	location: string;
@@ -17,7 +15,6 @@ interface CardProps {
 export function Card({
 	className,
 	title,
-	tag,
 	authorName,
 	date,
 	location,

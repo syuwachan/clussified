@@ -10,9 +10,13 @@ export default function LogoutButton() {
 	const handleLogout = async () => {
 		try {
 			await onLogout()
-			router.push('/login') 
-		} catch (err: any) {
-			alert('ログアウト失敗: ' + err.message)
+			router.push('/login')
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				alert('ログアウト失敗:' + err.message)
+			} else {
+				alert('ログアウト失敗: 不明なエラーが発生しました')
+			}
 		}
 	}
 

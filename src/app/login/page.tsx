@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import './login.css';
 
 export default function LoginPage() {
-	const { user, signIn, signOut } = useAuth();
+	const { user, signIn } = useAuth();
 	const router = useRouter();
 
 	const [email, setEmail] = useState('');
@@ -26,13 +26,13 @@ export default function LoginPage() {
 		setIsLoading(false);
 	};
 
-	const handleSignOut = async () => {
-		setIsLoading(true);
-		setError(null);
-		const { error } = await signOut();
-		setError(error?.message ?? null);
-		setIsLoading(false);
-	};
+	// const handleSignOut = async () => {
+	// 	setIsLoading(true);
+	// 	setError(null);
+	// 	const { error } = await signOut();
+	// 	setError(error?.message ?? null);
+	// 	setIsLoading(false);
+	// };
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -60,7 +60,7 @@ export default function LoginPage() {
 								Login
 							</h2>
 							<p className="mt-2 text-center text-sm text-gray-600">
-								Don't have an account?
+								Don&#39;t have an account?
 								<Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500 ml-1">
 									Sign Up
 								</Link>
