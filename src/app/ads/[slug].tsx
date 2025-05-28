@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import supabase from '@/lib/supabase'
 import { CardDetail } from '@/components/ui/CardDetail'
 import Header from '@/components/Header'
+import { Ad } from '@/types/ads'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const slug = context.params?.slug as string
@@ -24,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	}
 }
 
-export default function AdDetailPage({ ad }: { ad: any }) {
+export default function AdDetailPage({ ad }: { ad: Ad }) {
 	return (
 		<>
 			<Header />
@@ -35,8 +36,9 @@ export default function AdDetailPage({ ad }: { ad: any }) {
 				date={ad.date}
 				location={ad.location}
 				description={ad.description}
-				price={ad.price}
 				detailImages={ad.imageUrls ? [ad.imageUrls] : []}
+				created_at={ad.created_at}
+				listingId={ad.id}
 			/>
 		</>
 	)

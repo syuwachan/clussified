@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback} from 'react'
 import Image from 'next/image'
-import { Car, Home, ShoppingBag, Utensils, Calendar, Users, Plane, Briefcase, Heart, X, Upload } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'

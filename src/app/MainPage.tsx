@@ -1,4 +1,4 @@
-import { ShoppingCart, Utensils, Calendar, HelpCircle, Globe, MapPin, Briefcase, Heart, Car, House } from 'lucide-react';
+import { ShoppingCart, Utensils, Calendar, Globe, MapPin, Briefcase, Heart, Car, House } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MainPage() {
