@@ -15,7 +15,7 @@ export default function AuthCallback() {
 				console.log('Auth callback: Starting authentication check');
 
 				// URLパラメータからエラーを確認
-				const errorParam = searchParams.get('error');
+				const errorParam = searchParams?.get('error');
 				if (errorParam) {
 					throw new Error(`認証エラー: ${errorParam}`);
 				}
