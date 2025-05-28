@@ -12,7 +12,6 @@ interface Ad {
 	id: string
 	title: string
 	slug: string
-	tag: string
 	author_name: string
 	location: string
 	date: string
@@ -46,7 +45,6 @@ export default function BuySellTrade() {
 					<Card
 						key={ad.id}
 						title={ad.title}
-						tag={ad.tag}
 						authorName={ad.author_name}
 						date={ad.date}
 						location={ad.location}
