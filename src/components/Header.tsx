@@ -4,6 +4,7 @@ import { useState } from "react";
 import supabase from '@/lib/supabase'
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import useAuth from '@/hooks/useAuth';
 
 export default function Header() {
 	const [userName, setUserName] = useState<string | null>(null)
@@ -12,43 +13,19 @@ export default function Header() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			const { data: { user }, error } = await supabase.auth.getUser()
+			console.log(user)
 			if (error) {
 				console.error('ユーザー取得エラー', error)
 			} else if (user) {
-				// user_login_dataテーブルからユーザー名を取得
-				const { data: userData, error: userError } = await supabase
-					.from('user_login_data')
-					.select('username')
-					.eq('user_id', user.id)
-					.single()
-
-				if (userError) {
-					console.error('ユーザーデータ取得エラー', userError)
-					setUserName(user.email || null) // フォールバックとしてemailを使用
-				} else {
-					setUserName(userData.username || null)
-				}
+				setUserName(user.email || null)
 			}
 		}
-		console.log(userName)
 		fetchUser()
 
 		// 認証状態の変更を監視
 		const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
 			if (session?.user) {
-				// user_login_dataテーブルからユーザー名を取得
-				const { data: userData, error: userError } = await supabase
-					.from('user_login_data')
-					.select('username')
-					.eq('user_id', session.user.id)
-					.single()
-
-				if (userError) {
-					console.error('ユーザーデータ取得エラー', userError)
-					setUserName(session.user.email || null) // フォールバックとしてemailを使用
-				} else {
-					setUserName(userData.username || null)
-				}
+				setUserName(session.user.email || null)
 			} else {
 				setUserName(null)
 			}

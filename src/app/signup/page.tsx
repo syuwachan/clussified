@@ -99,7 +99,7 @@ export default function SignUpPage() {
 								</div>
 								<div>
 									<label htmlFor="password" className="sr-only">
-										Pass
+										Password
 									</label>
 									<input
 										id="password"
