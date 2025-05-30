@@ -1,15 +1,15 @@
 'use client'
 
-import useAuth from '../pages/hooks/useAuth'
+import useAuth from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 
 export default function LogoutButton() {
-	const { onLogout } = useAuth()
+	const { signOut } = useAuth()
 	const router = useRouter()
 
 	const handleLogout = async () => {
 		try {
-			await onLogout()
+			await signOut()
 			router.push('/login')
 		} catch (err: unknown) {
 			if (err instanceof Error) {

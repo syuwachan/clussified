@@ -4,7 +4,6 @@ import { useState } from "react";
 import supabase from '@/lib/supabase'
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import useAuth from '@/hooks/useAuth';
 
 export default function Header() {
 	const [userName, setUserName] = useState<string | null>(null)
