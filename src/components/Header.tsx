@@ -81,7 +81,7 @@ export default function Header() {
 							</div>
 						)}
 						<Link
-							href="/posts"
+							href="/posts/category"
 							className="px-4 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition-colors text-sm"
 						>
 							Post Free Ad
