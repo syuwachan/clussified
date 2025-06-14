@@ -12,9 +12,9 @@ interface Ad {
 	id: string
 	title: string
 	slug: string
-	author_name: string
+	contact_name: string
 	location: string
-	date: string
+	created_at: string
 	imageUrls: string
 }
 
@@ -25,12 +25,10 @@ export default function BuySellTrade() {
 	useEffect(() => {
 		const fetchAds = async () => {
 			const { data, error } = await supabase.from('ads').select('*')
-			console.log(data)
 			if (error) {
 				console.error('Error fetching ads:', error)
 			} else {
 				setAds(data)
-				console.log(data)
 			}
 		}
 		fetchAds()
@@ -45,8 +43,8 @@ export default function BuySellTrade() {
 					<Card
 						key={ad.id}
 						title={ad.title}
-						authorName={ad.author_name}
-						date={ad.date}
+						authorName={ad.contact_name}
+						date={ad.created_at}
 						location={ad.location}
 						images={ad.imageUrls ? [ad.imageUrls] : []}
 						onViewDetail={() => router.push(`/ads/${ad.id}`)}

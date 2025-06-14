@@ -1,13 +1,14 @@
 "use client"
 
-import { useState } from 'react'
+import { useState} from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+import { Database } from '@/lib/database.types';
 
 export default function AdDetails() {
+	const supabase = createClientComponentClient<Database>();
+
 	const [uploading, setUploading] = useState(false)
 	const [formData, setFormData] = useState({
 		title: '',
@@ -16,10 +17,9 @@ export default function AdDetails() {
 		location: '',
 		name: '',
 		phone: '',
-		email: ''
+		email: '',
+		image_url: ''
 	})
-	const supabase = createClientComponentClient()
-	const router = useRouter()
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 		const { name, value } = e.target
@@ -29,6 +29,31 @@ export default function AdDetails() {
 		}))
 	}
 
+	//upload image
+	const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+
+		if (!event.target.files || event.target.files.length === 0) {
+			return;
+		}
+		const file = event.target.files[0];
+
+		const fileCategory = formData.category || 'uncategorized';
+		const filePath = `${fileCategory}/${file.name}`;
+		const { error } = await supabase.storage.from('images').upload(filePath, file)
+		if (error) {
+			//ここでエラーハンドリングを行う
+		}
+		const { data } = supabase.storage.from('images').getPublicUrl(filePath);
+		const imageUrl = data.publicUrl;
+		console.log(formData);
+		setFormData(prev => ({
+			...prev,
+			image_url: imageUrl
+		}))
+		// const { error: databaseError } = await supabase.from('ads').insert({ image_url: imageUrl }).select().single();
+	}
+
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setUploading(true)
@@ -37,9 +62,10 @@ export default function AdDetails() {
 			const { data: { user } } = await supabase.auth.getUser()
 
 			const postData = {
-				user_id: user?.id || 'anonymous',
+				user_id: user?.id || null,
 				title: formData.title,
 				category: formData.category,
+				image_url:formData.image_url,
 				description: formData.description,
 				location: formData.location,
 				contact_name: formData.name,
@@ -55,16 +81,15 @@ export default function AdDetails() {
 
 			if (error) {
 				console.error('Error posting ad:', error)
-				alert(`投稿に失敗しました: ${error.message}`)
+				alert(`投稿に失敗しました: ${JSON.stringify(error)}`)
 				return
 			}
 
 			const localPosts = JSON.parse(localStorage.getItem('localPosts') || '[]')
-			localPosts.push(postData)
+			localPosts.push(data[0])
 			localStorage.setItem('localPosts', JSON.stringify(localPosts))
 
 			alert('投稿が完了しました')
-			router.push('/')
 		} catch (error) {
 			console.error('Error posting ad:', error)
 			alert('投稿に失敗しました')
@@ -81,7 +106,7 @@ export default function AdDetails() {
 					<h1 className="text-2xl mb-8 text-center text-[#3b82f6]">Enter your ad details</h1>
 					<form className="space-y-8" onSubmit={handleSubmit}>
 						<div className="bg-white p-6 rounded-lg shadow-sm border">
-							<h2 className="text-xl mb-6 font-semibold text-gray-800">Ad category<span className="text-red-500">*</span></h2>
+							<h2 className="text-xl mb-6 font-semibold text-gray-800">Ad category</h2>
 							<div className="space-y-4">
 								<label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Select Category <span className="text-red-500">*</span></label>
 								<select
@@ -105,6 +130,14 @@ export default function AdDetails() {
 								</select>
 							</div>
 						</div>
+
+						<div className="bg-white p-6 rounded-lg shadow-sm border">
+							<h2 className="text-xl mb-6 font-semibold text-gray-800">Ad Image</h2>
+							<div className="space-y-4">
+								<input type="file" onChange={handleImageUpload} />
+							</div>
+						</div>
+
 
 						<div className="bg-white p-6 rounded-lg shadow-sm border">
 							<h2 className="text-xl mb-6 font-semibold text-gray-800">Ad Details</h2>
@@ -195,6 +228,7 @@ export default function AdDetails() {
 								</div>
 							</div>
 						</div>
+
 
 						<button
 							type="submit"
