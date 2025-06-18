@@ -7,7 +7,6 @@ import { Ad } from '@/types/ads'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const slug = context.params?.slug as string
-
 	const { data, error } = await supabase
 		.from('ads')
 		.select('*')

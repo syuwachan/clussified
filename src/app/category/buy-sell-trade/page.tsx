@@ -12,7 +12,9 @@ interface Ad {
 	id: string
 	title: string
 	slug: string
+	image_url: string
 	contact_name: string
+	description: string
 	location: string
 	created_at: string
 	imageUrls: string
@@ -38,7 +40,7 @@ export default function BuySellTrade() {
 		<>
 			<Header />
 			<SearchBar />
-			<div className="gap-6 p-6 ">
+			<div className="flex flex-col items-center gap-6 p-6">
 				{ads.map((ad) => (
 					<Card
 						key={ad.id}
@@ -46,7 +48,8 @@ export default function BuySellTrade() {
 						authorName={ad.contact_name}
 						date={ad.created_at}
 						location={ad.location}
-						images={ad.imageUrls ? [ad.imageUrls] : []}
+						description={ad.description}
+						image={ad.image_url}
 						onViewDetail={() => router.push(`/ads/${ad.id}`)}
 					/>
 				))}

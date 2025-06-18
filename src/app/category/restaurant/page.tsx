@@ -1,33 +1,59 @@
-'use client';
+'use client'
 
 import Header from '@/components/Header'
-import useAuth from '@/hooks/useAuth';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Card } from '@/components/ui/Card'
+import supabase from '../../../lib/supabase'
+import { SearchBar } from '@/components/ui/SearchBar'
+// import AdDetailPage from '@/app/ads/[slug]'
 
-export default function RestaulantPage() {
-	const [isClient, setIsClient] = useState(false);
-	const { user } = useAuth();
-	const router = useRouter();
+interface Ad {
+	id: string
+	title: string
+	slug: string
+	image_url: string
+	contact_name: string
+	description: string
+	location: string
+	created_at: string
+	imageUrls: string
+}
+
+export default function BuySellTrade() {
+	const [ads, setAds] = useState<Ad[]>([])
+	const router = useRouter()
 
 	useEffect(() => {
-		setIsClient(true);
-	}, []);
-
-	useEffect(() => {
-		if (isClient && !user) {
-			router.push('/login');
+		const fetchAds = async () => {
+			const { data, error } = await supabase.from('ads').select('*')
+			if (error) {
+				console.error('Error fetching ads:', error)
+			} else {
+				setAds(data)
+			}
 		}
-	}, [isClient, user, router]);
-
-	if (!isClient) {
-		return null;
-	}
+		fetchAds()
+	}, [])
 
 	return (
 		<>
 			<Header />
-			<div>イベントページ</div>
+			<SearchBar />
+			<div className="flex flex-col items-center gap-6 p-6">
+				{ads.map((ad) => (
+					<Card
+						key={ad.id}
+						title={ad.title}
+						authorName={ad.contact_name}
+						date={ad.created_at}
+						location={ad.location}
+						description={ad.description}
+						image={ad.image_url}
+						onViewDetail={() => router.push(`/ads/${ad.id}`)}
+					/>
+				))}
+			</div>
 		</>
-	);
-} 
+	)
+}
