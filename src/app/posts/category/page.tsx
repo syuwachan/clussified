@@ -1,14 +1,15 @@
 "use client"
 
-import { useState} from 'react'
+import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/lib/database.types';
+import useAuth from '@/hooks/useAuth';
 
 export default function AdDetails() {
 	const supabase = createClientComponentClient<Database>();
-
+	const { user } = useAuth();
 	const [uploading, setUploading] = useState(false)
 	const [formData, setFormData] = useState({
 		title: '',
@@ -41,11 +42,9 @@ export default function AdDetails() {
 		const filePath = `${fileCategory}/${file.name}`;
 		const { error } = await supabase.storage.from('images').upload(filePath, file)
 		if (error) {
-			//ここでエラーハンドリングを行う
 		}
 		const { data } = supabase.storage.from('images').getPublicUrl(filePath);
 		const imageUrl = data.publicUrl;
-		console.log(formData);
 		setFormData(prev => ({
 			...prev,
 			image_url: imageUrl
@@ -58,14 +57,17 @@ export default function AdDetails() {
 		e.preventDefault()
 		setUploading(true)
 
-		try {
-			const { data: { user } } = await supabase.auth.getUser()
+		if (!user) {
+			alert('ログインが必要です')
+			return
+		}
 
+		try {
 			const postData = {
-				user_id: user?.id || null,
+				user_id: user.id,
 				title: formData.title,
 				category: formData.category,
-				image_url:formData.image_url,
+				image_url: formData.image_url,
 				description: formData.description,
 				location: formData.location,
 				contact_name: formData.name,
@@ -73,6 +75,7 @@ export default function AdDetails() {
 				contact_email: formData.email,
 				created_at: new Date().toISOString()
 			}
+			console.log(postData)
 
 			const { data, error } = await supabase
 				.from('ads')
