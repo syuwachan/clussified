@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/Card'
 import supabase from '../../../lib/supabase'
 import { SearchBar } from '@/components/ui/SearchBar'
-// import AdDetailPage from '@/app/ads/[slug]'
+import AdDetailPage from '@/app/ads/page'
 
 interface Ad {
 	id: string

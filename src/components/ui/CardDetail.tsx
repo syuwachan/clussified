@@ -28,7 +28,7 @@ export function CardDetail({
 }: CardDetailProps) {
 
 	useEffect(() => {
-		if (!listingId) return;  // listingIdが存在しない場合は早期リターン
+		if (!listingId) return;  
 
 		const fetchImages = async () => {
 			const { data, error } = await supabase
@@ -46,13 +46,6 @@ export function CardDetail({
 		fetchImages();
 	}, [listingId]);
 
-	// // 画像の追加
-	// const { data, error } = await supabase
-	// 	.from('images')
-	// 	.insert([
-	// 		{ listing_id: listingId, image_url: 'https://...', order_index: 1 },
-	// 		{ listing_id: listingId, image_url: 'https://...', order_index: 2 }
-	// 	]);
 
 	return (
 		<div className={cn("bg-white rounded-lg shadow-lg", className)}>

@@ -5,7 +5,6 @@ export interface Ad {
   date: string;
   location: string;
   description: string;
-  price: number;
-  imageUrls?: string;
+  image_url: string;
   created_at: string;
 } 

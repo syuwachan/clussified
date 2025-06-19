@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { Card } from '@/components/ui/Card'
 import supabase from '../../../lib/supabase'
 import { SearchBar } from '@/components/ui/SearchBar'
-// import AdDetailPage from '@/app/ads/[slug]'
 
 interface Ad {
 	id: string
@@ -57,3 +56,4 @@ export default function BuySellTrade() {
 		</>
 	)
 }
+
