@@ -1,23 +1,15 @@
-import { ShoppingCart, Utensils, Calendar, Globe, MapPin, Briefcase, Heart, Car, House } from 'lucide-react';
+import { ShoppingCart, Utensils, Calendar, Globe, MapPin, Users } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MainPage() {
+
   return (
     <div className="mt-12 flex items-center justify-center bg-radial-[at_25%_25%] from-white to-zinc-900 to-75%">
       <form className="w-1/2 p-4 bg-white rounded-xl shadow-md">
         <div className='text-center my-4 mx-4'>
-          <div className="loc-selector text-[#616161]">Your Location <span className='loc-selector-span'>Tokyo
-          </span> <a href="#" className="loc-selector-change">Change</a>
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-          <Link href="/category/motors" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
-              <Car className="w-8 h-8" />
-              <p className='text-sm font-light'>motors</p>
-            </Link>
-            <Link href="/category/property" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
-              <House className="w-8 h-8" />
-              <p className='text-sm font-light'>property</p>
-            </Link>
+          <h2 className='text-xl font-bold text-gray-700'>Live freely in Japan with local info at your fingertips.</h2>
+          <p className='text-sm text-gray-500'>Find the best deals, explore local culture, and connect with the community.</p>
+          <div className="grid grid-cols-3 gap-4 mt-6">
             <Link href="/category/buy-sell-trade" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
               <ShoppingCart className="w-8 h-8" />
               <p className='text-sm font-light'>buy sell trade</p>
@@ -38,13 +30,9 @@ export default function MainPage() {
               <MapPin className="w-8 h-8" />
               <p className='text-sm font-light'>tour experience</p>
             </Link>
-            <Link href="/category/jobs" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
-              <Briefcase className="w-8 h-8" />
-              <p className='text-sm font-light'>jobs</p>
-            </Link>
-            <Link href="/category/personals" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
-              <Heart className="w-8 h-8" />
-              <p className='text-sm font-light'>personals</p>
+            <Link href="/category/community" className="flex flex-col items-center gap-4 py-2 border rounded-lg shadow-sm grid-container category-container hover:shadow-md transition-shadow cursor-pointer">
+              <Users className="w-8 h-8" />
+              <p className='text-sm font-light'>community</p>
             </Link>
           </div>
         </div>

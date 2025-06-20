@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Header from '@/components/Header'
+import Header from '@/components/layout/Header'
 import { CardDetail } from '@/components/ui/CardDetail'
 import supabase from '@/lib/supabase'
 import { Ad } from '@/types/ads'
